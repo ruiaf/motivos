@@ -2,49 +2,45 @@
 #define _GRAPH_H_
 
 #include "defines.h"
-#include <stdlib.h>
+#include <vector>
+#include <iostream>
 
-typedef struct edge_t {
-	/* with u < v if graph is undirected */
-	int id;
+class Vertex;
+class Edge;
+class Graph;
 
-	node *u;
-	node *v;
-} edge;
+class Edge {
+	public:
+		Edge();
 
-typedef struct node_t {
-	int id;
+	private:
+		int id;
+		Vertex *u;
+		Vertex *v;
 
-	/* number of incident edges */
-	int m_edges;
+		friend class Graph;
+};
 
-	/* array of incident edges */
-	edge **edges;
-} node;
+class Vertex {
+	public:
+		Vertex();
 
-typedef struct graph_t {
-	/* number of vertices */
-	int n_nodes;
+	private:
+		int id;
+		std::vector<Edge *> edges;
 
-	/* number of edges */
-	int m_edges;
+		friend class Graph;
+};
 
-	/* array of nodes */
-	node **nodes;
-	edge **edges;
-} graph;
+class Graph {
+	public:
+		Graph();
+		void generateRandom(int n, int m);
 
-/* edge */
-edge *edge_new();
-void edge_set(edge *e, node *u, node *v);
+	private:
+		std::vector<Vertex *> vertices;
+		std::vector<Edge *> edges;
 
-/* node */
-node *node_new();
-void node_add_edge(node *u, edge *e);
-
-/* graph */
-graph *graph_new();
-void graph_add_node(node *u);
-void graph_add_edge(edge *e);
-
+		friend std::ostream &operator<<( std::ostream &out, const Graph &g );
+};
 #endif
