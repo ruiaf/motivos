@@ -1,8 +1,8 @@
 CFLAGS= -O4 -ansi -Wall
 
 all:
-	g++ $(CFLAGS) -c graph.cpp
+	g++ $(CFLAGS) -c Graph.cpp
 	g++ $(CFLAGS) -c motivos.cpp
-	g++ $(CFLAGS) -o motivos graph.o motivos.o
+	g++ $(CFLAGS) -o motivos Graph.o motivos.o
 clean:
 	rm *.o
