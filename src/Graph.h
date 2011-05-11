@@ -1,45 +1,50 @@
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
 
-#include <vector>
-#include <iostream>
-
 class Vertex;
 class Edge;
 class Graph;
 
+#include <vector>
+#include <iostream>
+#include "MotifSampler.h"
+
 class Edge {
 	public:
-		Edge();
 
 	private:
 		int id;
 		Vertex *u;
 		Vertex *v;
 
+		friend std::ostream &operator<<( std::ostream &out, const Edge &e );
 		friend class Graph;
+		friend class MotifSampler;
 };
 
 class Vertex {
 	public:
-		Vertex();
 
 	private:
 		int id;
+		int label;
 		std::vector<Edge *> edges;
 
+		friend std::ostream &operator<<( std::ostream &out, const Vertex &u );
+		friend std::ostream &operator<<( std::ostream &out, const Edge &e );
 		friend class Graph;
+		friend class MotifSampler;
 };
 
 class Graph {
 	public:
-		Graph();
-		void generateRandom(int n, int m);
+		void generateRandom(int n, int m, int n_labels);
 
 	private:
 		std::vector<Vertex *> vertices;
 		std::vector<Edge *> edges;
 
 		friend std::ostream &operator<<( std::ostream &out, const Graph &g );
+		friend class MotifSampler;
 };
 #endif

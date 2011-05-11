@@ -1,23 +1,11 @@
 #include "graph.h"
 
-Edge::Edge() {
-}
-
-Vertex::Vertex() {
-}
-
-/***
- * Graph Methods
- */
-
-Graph::Graph() {
-}
-
-void Graph::generateRandom(int n, int m) {
+void Graph::generateRandom(int n, int m, int n_labels) {
 
 	for (int i=0; i<n; i++) {
 		Vertex *v = new Vertex();
-		v->id = this->edges.size();
+		v->label = rand()%n_labels;
+		v->id = this->vertices.size();
 		this->vertices.push_back(v);
 	}
 
@@ -35,6 +23,18 @@ void Graph::generateRandom(int n, int m) {
 			}
 		}
 	}
+}
+
+std::ostream &operator<<( std::ostream &out, const Edge &e ) {
+	out << "(id:" << e.id << ' ' << e.u->id << ' ' << e.v->id << ")\n";
+	return out;
+}
+
+std::ostream &operator<<( std::ostream &out, const Vertex &u ) {
+	out << "(id: " << u.id << " ";
+	out << "label: " << u.label << " ";
+	out << "|E|: " << u.edges.size() << ")\n";
+	return out;
 }
 
 std::ostream &operator<<( std::ostream &out, const Graph &g ) {
