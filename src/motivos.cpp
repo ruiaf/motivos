@@ -7,10 +7,12 @@ int main(void) {
 	std::cout << *g;
 
 	MotifSampler *s = new MotifSampler(g);
-	for (int i=0; i<100; i++) {
-		s->sample(10);
+	for (int i=0; i<100000; i++) {
+		Motif * m = s->sample(200);
+		delete m;
+		if (i%1000==0)
+			std::cout << i << '\n';
 	}
-
 
 	return 0;
 }
