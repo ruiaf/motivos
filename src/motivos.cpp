@@ -4,7 +4,7 @@
 
 int main(void) {
 	Graph *g = new Graph();
-	g->generateRandom(10000, 200000, 2);
+	g->generateRandom(10000, 200000, 4);
 	std::cout << *g;
 
 	Sketch *sketch = new Sketch(10);
