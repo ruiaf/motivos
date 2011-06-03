@@ -37,3 +37,22 @@ void Motif::add(Edge *e) {
 bool Motif::operator<(const Motif &other) const {
 	return label_count < other.label_count;
 }
+
+
+unsigned Motif::hash(int seed, int maxval) {
+	unsigned key = seed;
+	//TODO: extend this for an unlimited number of labels
+
+	for (int i=0; i< 10; i++) {
+		key ^= ((i+101)*1000+label_count[i]);
+		key = (~key) + (key << 21); // key = (key << 21) - key - 1;
+		key = key ^ (key >> 24);
+		key = (key + (key << 3)) + (key << 8); // key * 265
+		key = key ^ (key >> 14);
+		key = (key + (key << 2)) + (key << 4); // key * 21
+		key = key ^ (key >> 28);
+		key = key + (key << 31);
+	}
+
+	return key%maxval;
+}

@@ -5,9 +5,9 @@
 int main(void) {
 	Graph *g = new Graph();
 	g->generateRandom(10000, 200000, 4);
-	std::cout << *g;
+	std::cerr << *g;
 
-	Sketch *sketch = new Sketch(10);
+	Sketch *sketch = new Sketch(10,0.01,0.01);
 	MotifSampler *s = new MotifSampler(g);
 
 	for (int i=0; i<100000; i++) {

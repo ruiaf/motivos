@@ -1,4 +1,4 @@
-#include "graph.h"
+#include "Graph.h"
 
 void Graph::generateRandom(int n, int m, int n_labels) {
 
@@ -38,8 +38,8 @@ std::ostream &operator<<( std::ostream &out, const Vertex &u ) {
 }
 
 std::ostream &operator<<( std::ostream &out, const Graph &g ) {
-	out << "|V| = " << g.vertices.size() << '\n';
-	out << "|E| = " << g.edges.size() << '\n';
+	out << "Graph (|V|=" << g.vertices.size() << ", ";
+	out << "|E|=" << g.edges.size() << ")\n";
 
 	return out;
 }

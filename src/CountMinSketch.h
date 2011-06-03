@@ -9,6 +9,7 @@
 class Sketch;
 
 #include "Motif.h"
+#include <math.h>
 #include <vector>
 #include <list>
 #include <map>
@@ -16,16 +17,30 @@ class Sketch;
 
 class Sketch {
 	public:
-		Sketch(int n_top_items);
-		int countMotif(Motif &m, int weight=1);
+		Sketch(int n_top_items,float epsilon,float delta);
 		std::vector<Motif> getTopK();
 		int getTop();
 
+		void countMotif(Motif &m, int weight=1);
+		float countMotifApproximate(Motif &m, int weight=1);
+		int countMotifExact(Motif &m, int weight=1);
+
 	private:
-		std::list< std::pair<int,Motif> > top_k;
-		int min_threshold;
-		std::map<Motif,int> counters;
 		unsigned k;
+
+		// exact counting, just for debug
+		std::list< std::pair<int,Motif> > exact_top_k;
+		std::map<Motif,int> exact_counter;
+		int exact_min_threshold;
+
+		// approximate_counting
+		float epsilon;
+		float delta;
+		int w;
+		int d;
+
+		int *counter_seeds;
+		int **counter;
 };
 
 #endif

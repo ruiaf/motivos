@@ -12,6 +12,7 @@ class Motif {
 	public:
 		Motif();
 		void add(Edge *e);
+		unsigned hash(int seed, int maxval);
 		bool operator<(const Motif &other) const;
 
 		std::map<int,int> label_count;
