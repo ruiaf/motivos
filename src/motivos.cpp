@@ -10,8 +10,8 @@ int main(void) {
 	Sketch *sketch = new Sketch(10,0.01,0.01);
 	MotifSampler *s = new MotifSampler(g);
 
-	for (int i=0; i<100000; i++) {
-		Motif * m = s->sample(200);
+	for (int i=0; i<1000000; i++) {
+		Motif * m = s->sample(10);
 		sketch->countMotif(*m);
 		delete m;
 		if (i%1000==0) {

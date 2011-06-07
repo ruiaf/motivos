@@ -7,6 +7,7 @@ class Graph;
 
 #include <vector>
 #include <iostream>
+#include <stdlib.h>
 #include "MotifSampler.h"
 
 class Edge {

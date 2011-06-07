@@ -8,19 +8,19 @@ Sketch::Sketch(int n_top_items, float epsilon, float delta) {
 	this->epsilon = epsilon;
 	this->delta = delta;
 
-	d= ceil(log(1.0/delta))*10;
-	w= ceil(M_E/epsilon)*10;
+	d= ceil(log(1.0/delta));
+	w= ceil(M_E/epsilon);
 
 	std::cerr << "Creating Sketch (height=" << w << ", width=" << d << ")... ";
-	counter_seeds = (int *) malloc(d*sizeof(int));
+	counter_seeds = (unsigned *) malloc(d*sizeof(unsigned));
 	for (int i=0; i<d; i++) {
 		counter_seeds[i] = random();
 	}
 
-	counter = (int **) malloc(d*sizeof(int*));
+	counter = (unsigned **) malloc(d*sizeof(unsigned*));
 	for (int i=0; i<d; i++) {
-		counter[i] = (int *) malloc(w*sizeof(int));
-		memset(counter[i],0,w*sizeof(int));
+		counter[i] = (unsigned *) malloc(w*sizeof(unsigned));
+		memset(counter[i],0,w*sizeof(unsigned));
 	}
 	std::cerr << "Done\n";
 }
@@ -36,7 +36,7 @@ float Sketch::countMotifApproximate(Motif &m, int weight) {
 	for (int i=0; i<d; i++) {
 		hash = m.hash(counter_seeds[i],w);
 		counter[i][hash]+=weight;
-		if (min> counter[i][hash]) {
+		if (min>counter[i][hash]) {
 			min = counter[i][hash];
 		}
 	}

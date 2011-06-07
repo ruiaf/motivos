@@ -6,7 +6,7 @@ class Motif;
 #include <set>
 #include <vector>
 #include <map>
-#include "graph.h"
+#include "Graph.h"
 
 class Motif {
 	public:

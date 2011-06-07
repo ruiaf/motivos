@@ -9,6 +9,7 @@
 class Sketch;
 
 #include "Motif.h"
+#include <string.h>
 #include <math.h>
 #include <vector>
 #include <list>
@@ -39,8 +40,8 @@ class Sketch {
 		int w;
 		int d;
 
-		int *counter_seeds;
-		int **counter;
+		unsigned *counter_seeds;
+		unsigned **counter;
 };
 
 #endif
