@@ -4,8 +4,7 @@
 
 int main(void) {
 	Graph *g = new Graph();
-	g->generateRandom(10000, 200000, 4);
-	std::cerr << *g;
+	g->importSIF("../datasets/DM_Torque.sif");
 
 	Sketch *sketch = new Sketch(10,0.01,0.01);
 	MotifSampler *s = new MotifSampler(g);
