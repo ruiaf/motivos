@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include "MotifSampler.h"
+#include "MotifLister.h"
 #include "CountMinSketch.h"
 
 int main(void) {
@@ -7,10 +8,10 @@ int main(void) {
 	g->importSIF("../datasets/DM_Torque.sif");
 
 	Sketch *sketch = new Sketch(10,0.01,0.01);
-	MotifSampler *s = new MotifSampler(g);
+	MotifLister *s = new MotifLister(g,200,0.1);
 
-	for (int i=0; i<1000000; i++) {
-		Motif * m = s->sample(10);
+	for (int i=0; i<100000; i++) {
+		Motif * m = s->next();
 		sketch->countMotif(*m);
 		delete m;
 		if (i%1000==0) {

@@ -31,12 +31,12 @@ void Sketch::countMotif(Motif &m, int weight) {
 }
 
 float Sketch::countMotifApproximate(Motif &m, int weight) {
-	unsigned min = (unsigned)-1;
+	int min = INT_MAX;
 	unsigned hash;
 	for (int i=0; i<d; i++) {
 		hash = m.hash(counter_seeds[i],w);
 		counter[i][hash]+=weight;
-		if (min>counter[i][hash]) {
+		if (min > counter[i][hash]) {
 			min = counter[i][hash];
 		}
 	}
