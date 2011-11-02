@@ -35,12 +35,12 @@ std::ostream &operator<<( std::ostream &out, const Edge &e );
 class Graph {
 	public:
 		void generateRandom(int n, int m, int n_labels);
-        void importSIF(const char *filepath);
+		void importSIF(const char *filepath);
 
 		std::vector<Vertex *> vertices;
 		std::vector<Edge *> edges;
 
-        std::map<std::string,int> vertex_name_dict;
+		std::map<std::string,int> vertex_name_dict;
 };
 
 std::ostream &operator<<( std::ostream &out, const Graph &g );

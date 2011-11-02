@@ -1,54 +1,92 @@
 #include "Graph.h"
 
 void Graph::importSIF(const char *filepath) {
-    
-    std::cerr << "Opening \"" << filepath << "\"...";
 
-    std::ifstream sif_file(filepath);
+	std::cerr << "Opening SIF FILE: \"" << filepath << "\"...";
 
-    if (sif_file.is_open()) {
-        std::cout << "\tDone\n";
+	std::ifstream sif_file(filepath);
 
-        std::cout << "Reading File...";
+	if (sif_file.is_open()) {
+		std::cerr << "\tDone\n";
 
-        std::string line;
-        while ( sif_file.good() ) {
-            getline (sif_file,line);
+		std::cerr << "Reading File...";
 
-            std::istringstream iss(line, std::istringstream::in);
-            std::string node_A, edge_type, node_B;
-            int node_A_id, node_B_id;
+		std::string line;
+		while ( sif_file.good() ) {
+			getline (sif_file,line);
 
-            iss >> node_A;
-            iss >> edge_type;
-            iss >> node_B;
+			std::istringstream iss(line, std::istringstream::in);
+			std::string node_A, edge_type, node_B;
 
-            if (this->vertex_name_dict.count(iss)==0) {
-                vertex_name_dict[node_A] = vertex_name_dict.size();
-            }
+			iss >> node_A;
+			iss >> edge_type; // ignored for the moment
+			iss >> node_B;
 
-            node_A_id = vertex_name_dict[node_A];
+			/* Set node names and ids. Add vertices if they do not
+			 * exist */
 
-            if (this->vertex_name_dict.count(iss)==0) {
-                vertex_name_dict[node_B] = vertex_name_dict.size();
-            }
+			Vertex *v_a,*v_b;
 
-            node_B_id = vertex_name_dict[node_B];
+			// v_a
 
-            std::cout << node_A << node_B << "\n";
-            
-        }
-        sif_file.close();
+			if (this->vertex_name_dict.count(node_A)==0) {
 
-        std::cout << "\tDone\n";
-    } else {
-        std::cout << "\tUnable to open file\n";
-    }
+				// create and set new vertex
+				v_a = new Vertex();
+				v_a->label = 0; // no label used for the moment
+				v_a->id = this->vertices.size();
+				this->vertices.push_back(v_a);
+
+				// set the name
+				this->vertex_name_dict[node_A] = v_a->id;
+			} else {
+
+				// load existing vertex
+				v_a = this->vertices[this->vertex_name_dict[node_A]];
+			}
+
+			// v_b
+
+			if (this->vertex_name_dict.count(node_B)==0) {
+
+				// create and set new vertex
+				v_b = new Vertex();
+				v_b->label = 0; // no label used for the moment
+				v_b->id = this->vertices.size();
+				this->vertices.push_back(v_b);
+
+				// set the name
+				this->vertex_name_dict[node_B] = v_b->id;
+			} else {
+
+				// load existing vertex
+				v_b = this->vertices[this->vertex_name_dict[node_B]];
+			}
+
+			/* Add the edge between a and b */
+
+			Edge * e = new Edge();
+			e->id = this->edges.size();
+			e->u = v_a;
+			e->v = v_b;
+
+			v_a->edges.push_back(e);
+			v_b->edges.push_back(e);
+			this->edges.push_back(e);
+		}
+
+		sif_file.close();
+
+		std::cerr << "\tDone\n";
+	} else {
+		std::cerr << "\tUnable to open file\n";
+	}
 
 	std::cerr << *this;
 }
 
 
+/* Generate a erdos-renyi graph */
 void Graph::generateRandom(int n, int m, int n_labels) {
 
 	for (int i=0; i<n; i++) {
