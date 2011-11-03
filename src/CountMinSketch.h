@@ -15,6 +15,7 @@ class Sketch;
 #include <list>
 #include <map>
 #include <utility>
+#include <climits>
 
 class Sketch {
 	public:
