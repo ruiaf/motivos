@@ -19,23 +19,11 @@ class Sketch;
 
 class Sketch {
 	public:
-		Sketch(int n_top_items,float epsilon,float delta);
-		std::vector<Motif> getTopK();
-		int getTop();
+		Sketch(float epsilon,float delta);
 
-		void countMotif(Motif &m, int weight=1);
-		float countMotifApproximate(Motif &m, int weight=1);
-		int countMotifExact(Motif &m, int weight=1);
+		float countMotif(Motif &m, int weight=1);
 
 	private:
-		unsigned k;
-
-		// exact counting, just for debug
-		std::list< std::pair<int,Motif> > exact_top_k;
-		std::map<Motif,int> exact_counter;
-		int exact_min_threshold;
-
-		// approximate_counting
 		float epsilon;
 		float delta;
 		int w;

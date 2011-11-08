@@ -1,10 +1,14 @@
-#include "Motif.h"
+#include "ConnectedVertexSetMotif.h"
 
-Motif::Motif() {
+ConnectedVertexSetMotif::ConnectedVertexSetMotif() {
 	n_incident_edges=0;
 }
 
-void Motif::add(Edge *e) {
+ConnectedVertexSetMotif * ConnectedVertexSetMotif::clone() {
+	return new ConnectedVertexSetMotif(*this);
+}
+
+void ConnectedVertexSetMotif::add(Edge *e) {
 	bool is_new_e = false;
 	
 	if (this->node_ids.find(e->u->id) == this->node_ids.end()){
@@ -31,15 +35,19 @@ void Motif::add(Edge *e) {
 
 	if (is_new_e) {
 		this->edges.push_back(e);
+		//std::cout << "added_edge" << *e;
 	}
 }
 
-bool Motif::operator<(const Motif &other) const {
+bool ConnectedVertexSetMotif::operator<(const ConnectedVertexSetMotif &other) const {
 	return label_count < other.label_count;
 }
 
+void ConnectedVertexSetMotif::print( std::ostream &out ) const {
+	out << nodes.size() << " " << edges.size();
+}
 
-unsigned Motif::hash(int seed, int maxval) {
+unsigned ConnectedVertexSetMotif::hash(int seed, int maxval) {
 	unsigned key = seed;
 	//TODO: extend this for an unlimited number of labels
 

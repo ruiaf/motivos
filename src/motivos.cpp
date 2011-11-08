@@ -1,23 +1,22 @@
 #include "Graph.h"
+#include "Motif.h"
 #include "MotifSampler.h"
-#include "MotifLister.h"
+#include "RandESUMotifSampler.h"
 #include "CountMinSketch.h"
 
 int main(void) {
 	Graph *g = new Graph();
-	g->importSIF("../datasets/DM_Torque.sif");
+	g->importSIF("../datasets/SC_Torque.sif");
 
-	Sketch *sketch = new Sketch(10,0.01,0.01);
-	MotifLister *s = new MotifLister(g,200,0.1);
+	//Sketch *sketch = new Sketch(0.01,0.01);
 
-	for (int i=0; i<100000; i++) {
-		Motif * m = s->next();
-		sketch->countMotif(*m);
-		delete m;
-		if (i%1000==0) {
-			std::cout << i << ' ' << sketch->getTop() << '\n';
-		}
-	}
+	int k = 100;
+	float p=0.1;
+
+	RandESUMotifSampler *s;
+
+       	s = new RandESUMotifSampler(g,k,p);
+	s->outputAllSubgraphs();
 
 	return 0;
 }

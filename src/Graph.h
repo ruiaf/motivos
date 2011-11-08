@@ -12,7 +12,6 @@ class Graph;
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "MotifSampler.h"
 
 class Edge {
 	public:
