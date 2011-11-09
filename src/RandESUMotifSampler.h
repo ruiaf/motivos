@@ -7,7 +7,7 @@ class RandESUMotifSampler;
 #include "ConnectedVertexSetMotif.h"
 #include "MotifSampler.h"
 #include <vector>
-#include <set>
+#include <unordered_set>
 
 class RandESUMotifSampler: public MotifSampler {
 	public:
@@ -16,9 +16,9 @@ class RandESUMotifSampler: public MotifSampler {
 		void outputAllSubgraphs(); 
 		void outputSubgraphs(std::vector<Vertex *> &v_subgraph,
 			std::vector<Vertex *> &v_extension,
-			std::set<Vertex *> &v_subgraph_neighbourhood,
+			std::unordered_set<Vertex *> &v_subgraph_neighbourhood,
 	       		Vertex *v);
-		std::set<Vertex *> calculateNeighbourhood(std::vector<Vertex *> v_subgraph);
+		std::unordered_set<Vertex *> calculateNeighbourhood(std::vector<Vertex *> v_subgraph);
 
 	private:
 		Graph *g;

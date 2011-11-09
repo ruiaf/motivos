@@ -82,6 +82,7 @@ void Graph::importSIF(const char *filepath) {
 		std::cerr << "\tUnable to open file\n";
 	}
 
+    calculateStatistics();
 	std::cerr << *this;
 }
 
@@ -112,21 +113,31 @@ void Graph::generateRandom(int n, int m, int n_labels) {
 	}
 }
 
-std::ostream &operator<<( std::ostream &out, const Edge &e ) {
-	out << "(id:" << e.id << ' ' << e.u->id << ' ' << e.v->id << ")\n";
-	return out;
+void Graph::calculateStatistics() {
+    average_degree = 0;
+    maximum_degree = 0;
+	for (unsigned i=1; i< this->vertices.size(); i++) {
+        if ( this->vertices[i]->edges.size() > maximum_degree ) {
+            maximum_degree = this->vertices[i]->edges.size(); 
+        }
+    }
+
+    average_degree = (float) this->edges.size() / (this->vertices.size()*2);
 }
 
-std::ostream &operator<<( std::ostream &out, const Vertex &u ) {
-	out << "(id: " << u.id << " ";
-	out << "label: " << u.label << " ";
-	out << "|E|: " << u.edges.size() << ")\n";
-	return out;
+void Edge::print( std::ostream &out) const {
+	out << "(id:" << id << ' ' << u->id << ' ' << v->id << ")\n";
 }
 
-std::ostream &operator<<( std::ostream &out, const Graph &g ) {
-	out << "Graph (|V|=" << g.vertices.size() << ", ";
-	out << "|E|=" << g.edges.size() << ")\n";
+void Vertex::print( std::ostream &out) const {
+	out << "(id: " << id << " ";
+	out << "label: " << label << " ";
+	out << "|E|: " << edges.size() << ")\n";
+}
 
-	return out;
+void Graph::print( std::ostream &out) const {
+	out << "Graph (|V|=" << vertices.size() << ", ";
+	out << "|E|=" << edges.size() << " ";
+	out << "Avg Deg=" << average_degree << " ";
+	out << "Max Deg=" << maximum_degree << ")\n";
 }

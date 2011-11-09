@@ -15,32 +15,57 @@ class Graph;
 
 class Edge {
 	public:
+        friend std::ostream &operator<<( std::ostream &out, const Edge &e ) {
+			e.print(out);
+			return out;
+        }
+
 		int id;
 		Vertex *u;
 		Vertex *v;
+
+    private:
+        void print( std::ostream &out ) const;
 };
 
-std::ostream &operator<<( std::ostream &out, const Edge &e );
 
 class Vertex {
 	public:
-		int id;
+        friend std::ostream &operator<<( std::ostream &out, const Vertex &v ) {
+            v.print(out);
+            return out;
+        }
+        
+        int id;
 		int label;
 		std::vector<Edge *> edges;
+
+    private:
+        void print( std::ostream &out ) const;
 };
 
-std::ostream &operator<<( std::ostream &out, const Edge &e );
 
 class Graph {
 	public:
 		void generateRandom(int n, int m, int n_labels);
 		void importSIF(const char *filepath);
 
+        friend std::ostream &operator<<( std::ostream &out, const Graph &g ) {
+            g.print(out);
+            return out;
+        }
+
 		std::vector<Vertex *> vertices;
 		std::vector<Edge *> edges;
 
 		std::map<std::string,int> vertex_name_dict;
+    private:
+        void print( std::ostream &out ) const;
+        void calculateStatistics();
+
+        /* statistics */
+        float average_degree;
+        unsigned maximum_degree;
 };
 
-std::ostream &operator<<( std::ostream &out, const Graph &g );
 #endif

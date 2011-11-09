@@ -1,4 +1,4 @@
-CFLAGS= -O4 -ansi -Wall -g
+CFLAGS= -O4 -ansi -Wall -g -std=c++0x
 
 all:
 	g++ $(CFLAGS) -c Graph.cpp

@@ -11,11 +11,11 @@ int main(void) {
 	//Sketch *sketch = new Sketch(0.01,0.01);
 
 	int k = 100;
-	float p=0.1;
+	float p=0.05;
 
 	RandESUMotifSampler *s;
 
-       	s = new RandESUMotifSampler(g,k,p);
+    s = new RandESUMotifSampler(g,k,p);
 	s->outputAllSubgraphs();
 
 	return 0;
